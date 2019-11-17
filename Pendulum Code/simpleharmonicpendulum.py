@@ -26,7 +26,7 @@ observables['kappa'] = 0.
 observables['eta'] = 0.
 observables['omega_0'] = np.sqrt((observables['M']*g*l)/I)
 
-N = 5000
+N = 500
 times = np.linspace(0., 10., N+1)
 
 
@@ -55,11 +55,11 @@ plt.show()
 
 plotargs = pp.Plot_Arguments
 
-plotargs['color'] = 'green'
+plotargs['color'] = 'orange'
 plotargs['lineshape'] = '-'
 plotargs['title'] = 'Phase Space'
-plotargs['xlabel'] = r'$\phi(t)$'
-plotargs['ylabel'] = r'$\dot\phi(t)$'
+plotargs['xlabel'] = r'$\phi(t)$ (rad)'
+plotargs['ylabel'] = r'$\dot\phi(t)$ (rad $s^{-1}$)'
 plotargs['graph label'] = None
 plotargs['legend'] = None
 
@@ -67,6 +67,19 @@ plotargs['legend'] = None
 
 
 pp.phasespace(times, yvals, plotargs)
+
+plt.show()
+
+
+plotargs['color'] = 'magenta'
+plotargs['lineshape'] = '-'
+plotargs['title'] = 'Spectrum'
+plotargs['xlabel'] = r'$\omega$ (rad $s^{-1}$)'
+plotargs['ylabel'] = 'Relative Power'
+plotargs['graph label'] = None
+plotargs['legend'] = None
+
+pp.frequencyspectrum(times, yvals, plotargs)
 
 
 

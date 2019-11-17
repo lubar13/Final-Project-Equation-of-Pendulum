@@ -58,6 +58,7 @@ def pendulumChi(t, y, args):
     return dydt
     
 
-Parameters = {'omega_0': 0., 'kappa': 0., 'chi': 0., 'eta': 0., 'omega_d': 0., 'M': 0.}
+Parameters = {'omega_0': 0., 'kappa': 0., 'chi': 0., 'eta': 0., 'omega_d': 0., 'M': 0., 
+              'alpha': 0.}
 
 
