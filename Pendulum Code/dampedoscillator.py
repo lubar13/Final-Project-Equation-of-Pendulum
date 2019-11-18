@@ -51,7 +51,7 @@ parameters['omega_0'] = np.sqrt(((m_1 + m_2)*g*L)/I)
 parameters['eta'] = 0.
 
 tmax = 10
-N = 100000
+N = 1000
 
 times = np.linspace(0, tmax, N)
 
@@ -102,8 +102,25 @@ for i in range(len(alphavals)):
     plt.figure(figsize=(2,2))
 
     plt.show()
-    
 
+
+plotargs['title'] = r'Spectrum for Different Damping Coefficients $\chi$'
+plotargs['xlabel'] = r'$\omega$ (rad/s)'
+plotargs['ylabel'] = 'Relative Power'
+plotargs['loc'] = 1    
+
+
+for i in range(len(alphavals)):
+    parameters['alpha'] = alphavals[i]
+    parameters['kappa'] = parameters['alpha']*(2*parameters['M']*parameters['omega_0'])
+    chi = str(round(parameters['alpha'], 2))
+    plotargs['color'] = colors[i]
+    plotargs['graph label'] = r'$\chi =$ '+ chi 
+    yvals = RK4(pendulum, y_0, times, parameters)
+    pp.frequencyspectrum(times, yvals, plotargs)
+    plt.figure(figsize=(2,2))
+
+    plt.show()
 
 '''
 overdamped = np.linspace(1, 5, 6)
