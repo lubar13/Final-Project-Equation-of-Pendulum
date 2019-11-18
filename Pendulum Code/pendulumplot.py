@@ -12,13 +12,13 @@ import numpy as np
 
 
 Plot_Arguments = {'graph label': ' ', 'color': ' ', 'title': ' ', 
-                    'xlabel': ' ', 'ylabel': ' ', 'lineshape': ' '}
+                    'xlabel': ' ', 'ylabel': ' ', 'lineshape': ' ', 'loc': 1}
 
 
 def displacementplot(times, yvals, args):
     
     plt.plot(times, yvals[:,0], args['lineshape'], c=args['color'], label=args['graph label'])
-    plt.legend(loc=2)
+    plt.legend(loc=args['loc'])
     plt.title(args['title'])
     plt.xlabel(args['xlabel'])
     plt.ylabel(args['ylabel'])
@@ -30,7 +30,7 @@ def phasespace(times, yvals, args):
     
     plt.plot(yvals[:, 0], yvals[:, 1], args['lineshape'], c=args['color'], label=args['graph label'])
     
-    plt.legend(loc=2)
+    plt.legend(loc=args['loc'])
     plt.title(args['title'])
     plt.xlabel(args['xlabel'])
     plt.ylabel(args['ylabel'])
@@ -48,7 +48,7 @@ def frequencyspectrum(times, yvals, args):
     plt.plot(frequencies[:int(N/2)]*2*np.pi, abs(transform[:int(N/2)]), 
                          args['lineshape'], c=args['color'], label=args['graph label'])
     
-    plt.legend(loc=2)
+    plt.legend(loc=args['loc'])
     plt.title(args['title'])
     plt.xlabel(args['xlabel'])
     plt.ylabel(args['ylabel'])
