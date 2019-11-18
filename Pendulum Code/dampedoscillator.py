@@ -36,7 +36,7 @@ inertia I = (1/3)*m_1*L^2 + (L+r)^2*m_2.
 ### ===============================================================================
 
 
-alphavals = np.linspace(0.1, 1, 6)
+alphavals = np.linspace(0.0, 0.1, 2)
 
 m_1 = 0.35
 m_2 = 0.80
@@ -48,14 +48,16 @@ I = (1/3)*m_1*L**2 + (L+r)**2*m_1
 
 parameters['M'] = m_1 + m_2
 parameters['omega_0'] = np.sqrt(((m_1 + m_2)*g*L)/I)
-parameters['eta'] = 0.
+parameters['eta'] = parameters['omega_0']**2
+parameters['omega_d'] = np.sqrt(((m_1 + m_2)*g*L)/I)
+parameters['delta'] = 0*np.pi/4
 
-tmax = 10
-N = 1000
+tmax = 16000
+N = 250000
 
 times = np.linspace(0, tmax, N)
 
-initial_angle = -np.pi/10
+initial_angle = -np.pi/9
 initial_velocity = 0.
 y_0 = np.array([initial_angle, initial_velocity])
 
@@ -111,13 +113,14 @@ plotargs['loc'] = 1
 
 
 for i in range(len(alphavals)):
+    x = np.linspace(0, 5, 500)
     parameters['alpha'] = alphavals[i]
     parameters['kappa'] = parameters['alpha']*(2*parameters['M']*parameters['omega_0'])
     chi = str(round(parameters['alpha'], 2))
     plotargs['color'] = colors[i]
     plotargs['graph label'] = r'$\chi =$ '+ chi 
-    yvals = RK4(pendulum, y_0, times, parameters)
-    pp.frequencyspectrum(times, yvals, plotargs)
+    yvals = RK4(pendulum, y_0, x, parameters)
+    pp.frequencyspectrum(x, yvals, plotargs)
     plt.figure(figsize=(2,2))
 
     plt.show()
