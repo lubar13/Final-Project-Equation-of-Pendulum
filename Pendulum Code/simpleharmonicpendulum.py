@@ -30,7 +30,7 @@ N = 500
 times = np.linspace(0., 10., N+1)
 
 
-phi_0 = np.pi/100
+phi_0 = np.pi/1.1
 
 phidot_0 = 0.
 
@@ -41,10 +41,9 @@ yvals = RK4(pendulum, initial_conditions, times, observables)
 
 
 
-smol = phi_0*np.cos(observables['omega_0']*times)
+
 
 plt.plot(times, yvals[:,0], '-', c='r', label='Calculated Angular Displacement')
-plt.plot(times, smol, '--', c='b', label='Small Angle Approximation')
 
 plt.legend(loc=2)
 plt.title('Time Evolution of Simple Harmonic Pendulum')

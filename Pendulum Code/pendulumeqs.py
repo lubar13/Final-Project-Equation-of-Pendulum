@@ -33,7 +33,7 @@ its values in future files.
 
 
 Parameters = {'omega_0': 0., 'kappa': 0., 'chi': 0., 'eta': 0., 'omega_d': 0., 'M': 0., 
-              'alpha': 0., 'delta': 0.}
+              'alpha': 0., 'delta': 0., 'inertia': 0., 'torque':0.}
 
 def pendulum(t, y, args):
     
@@ -57,7 +57,13 @@ def pendulumChi(t, y, args):
     
     return dydt
     
-
-
+def pendulumTorque(t, y, args):
+    
+    dydt = np.zeros(2)
+    
+    dydt[0] = y[1]
+    dydt[1] = -(np.sin(y[0]))*(args['omega_0']**2+args['eta']*np.cos(args['omega_d']*t+args['delta'])) - args['kappa']*y[1]
+    
+    return dydt
 
 

@@ -36,7 +36,7 @@ inertia I = (1/3)*m_1*L^2 + (L+r)^2*m_2.
 ### ===============================================================================
 
 
-alphavals = np.linspace(0.0, 0.1, 2)
+alphavals = np.linspace(0.1, 2, 8)
 
 m_1 = 0.35
 m_2 = 0.80
@@ -48,12 +48,12 @@ I = (1/3)*m_1*L**2 + (L+r)**2*m_1
 
 parameters['M'] = m_1 + m_2
 parameters['omega_0'] = np.sqrt(((m_1 + m_2)*g*L)/I)
-parameters['eta'] = parameters['omega_0']**2
-parameters['omega_d'] = np.sqrt(((m_1 + m_2)*g*L)/I)
+parameters['eta'] = 0*parameters['omega_0']**2
+parameters['omega_d'] = 0*np.sqrt(((m_1 + m_2)*g*L)/I)
 parameters['delta'] = 0*np.pi/4
 
-tmax = 16000
-N = 250000
+tmax = 10
+N = 2500
 
 times = np.linspace(0, tmax, N)
 
