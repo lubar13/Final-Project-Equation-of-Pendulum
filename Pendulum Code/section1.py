@@ -46,7 +46,7 @@ plotargs = pp.Plot_Arguments
 
 
 T = (2*np.pi)/parameters['omega_0']
-colors = ['red', 'blue', 'green', 'orange', 'magenta', 'c']
+colors = ['red', 'blue', 'green', 'orange', 'magenta', 'c'] * 10
 
 
 plotargs['xlabel'] = 'Time (s)'
@@ -105,11 +105,36 @@ for t in periods:
 print(errors)
 
 
-plt.plot(initialvals, periods, '-.', color = 'c')
-plt.axhline(T, color = 'k', linestyle = '--')
+plt.plot(initialvals, periods, '-.', color = 'g')
+plt.title(r'Divergence of Period as $\phi_0 \to \pi$')
+plt.xlabel(r'$\phi_0$ (rad)')
+plt.ylabel('T (s)')
+plt.axvline(np.pi, color = 'b', linestyle = '--', label=r'$\pi$')
+plt.axhline(T, color = 'r', linestyle = '--', label = 'T = {} s'.format(str(round(T,3))))
+plt.legend(loc=2)
 plt.show()
 
-plt.plot(initialvals, errors, '-.', color = 'green')
+initials = np.linspace(np.pi/8, np.pi/1.001, 5)
+times = np.linspace(0, 25, 1500)
 
+
+
+plotargs['title'] = r'Phase Space for Different $\phi_0$'
+plotargs['xlabel'] = r'Angular Displacement $\phi$ (rad)'
+plotargs['ylabel'] = r'Angular Velocity $\dot\phi$ (rad/s)'
+plotargs['loc'] = 2
+plotargs['lineshape'] = '-'
+
+for i in range(len(initials)):
+    
+    y_0 = np.array([initials[i], 0])
+    plotargs['color'] = colors[i]
+    phi = str(round(initials[i], 3))
+    plotargs['graph label'] = r'$\phi_0 = $' + phi
+    yvals = RK4(pendulum, y_0, times, parameters)
+    
+    pp.phasespace(times, yvals, plotargs)
+plt.ylim((-3,3))
+plt.grid()
     
             
