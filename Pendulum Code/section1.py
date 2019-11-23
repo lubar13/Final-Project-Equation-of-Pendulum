@@ -27,9 +27,9 @@ I = (1/3)*m_1*L*L + (L+r)**2*m_2
 
 
 parameters['M'] = m_1 + m_2
-parameters['omega_0'] = np.sqrt(parameters['M']*g*L_cm)
+parameters['omega_0'] = np.sqrt((parameters['M']*g*L_cm)/I)
 
-times = np.linspace(0, 18, 5000)
+times = np.linspace(0, 5, 5000)
 
 initialvals = np.linspace(np.pi/15, np.pi/1.1, 5)
 phi_in = np.pi/10
@@ -95,14 +95,12 @@ for i in range(len(initialvals)):
             crossings.append(t)
     period = crossings[1]-crossings[0]
     periods.append(period)
-print(periods)
 
 errors = []
 for t in periods:
     err = t - T
     errors.append(err)
 
-print(errors)
 
 
 plt.plot(initialvals, periods, '-.', color = 'g')
@@ -114,7 +112,7 @@ plt.axhline(T, color = 'r', linestyle = '--', label = 'T = {} s'.format(str(roun
 plt.legend(loc=2)
 plt.show()
 
-initials = np.linspace(np.pi/8, np.pi/1.001, 5)
+initials = np.linspace(np.pi/15, np.pi/1.1, 5)
 times = np.linspace(0, 25, 1500)
 
 
@@ -134,7 +132,6 @@ for i in range(len(initials)):
     yvals = RK4(pendulum, y_0, times, parameters)
     
     pp.phasespace(times, yvals, plotargs)
-plt.ylim((-3,3))
 plt.grid()
     
             

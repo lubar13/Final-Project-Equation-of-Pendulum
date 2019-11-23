@@ -21,21 +21,20 @@ L = 0.35
 r = 0.05
 
 L_cm = ((L/2)*(m_1+m_2) + r*m_2)/(m_1+m_2)
-
-
+ 
 I = (1/3)*m_1*L*L + (L+r)**2*m_2
 
 
 parameters['M'] = m_1 + m_2
-parameters['omega_0'] = np.sqrt(parameters['M']*g*L_cm)
+parameters['omega_0'] = np.sqrt((parameters['M']*g*L_cm)/I)
 
 
-times = np.linspace(0, 50, 5000)
+times = np.linspace(0, 15, 5000)
 
 phi_in = np.pi/10
 vel_in = 0
 
-alphavals = np.linspace(0.1, 2, 6)
+alphavals = np.linspace(0.1, 1.9, 3)
 
 y_0 = np.array([phi_in, vel_in])
 
@@ -52,7 +51,7 @@ plotargs['loc'] = 1
 
 for i in range(len(alphavals)):
     parameters['alpha'] = alphavals[i]
-    parameters['kappa'] = parameters['alpha']*(2*parameters['M']*parameters['omega_0'])
+    parameters['kappa'] = parameters['alpha']*(2*parameters['omega_0'])
     chi = str(round(parameters['alpha'], 2))
     plotargs['color'] = colors[i]
     plotargs['graph label'] = r'$\chi =$ '+ chi 
@@ -72,7 +71,7 @@ plotargs['loc'] = 1
 
 for i in range(len(alphavals)):
     parameters['alpha'] = alphavals[i]
-    parameters['kappa'] = parameters['alpha']*(2*parameters['M']*parameters['omega_0'])
+    parameters['kappa'] = parameters['alpha']*(2*parameters['omega_0'])
     chi = str(round(parameters['alpha'], 2))
     plotargs['color'] = colors[i]
     plotargs['graph label'] = r'$\chi =$ '+ chi 
