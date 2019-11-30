@@ -61,7 +61,8 @@ plotargs['title'] = ''
 plotargs['titlesize'] = 18
 plotargs['labelsize'] = 12
 
-fig = plt.figure()
+fig1, axs1 = plt.subplots()
+
 
 parameters['kappa'] = 2*parameters['omega_0']*0.1
 parameters['omega_d'] = parameters['omega_0']*0.56
@@ -78,12 +79,35 @@ parameters['omega_d'] = parameters['omega_0']*0.56
 parameters['eta'] = 71.16
 y3 = RK4(pendulum, y_0, times, parameters)
 
-ax1 = fig.add_subplot(111)
-ax1.plot(times, y1[:,0], '-', color='crimson')
-ax1.plot(times, y2[:,0], '-', color='royalblue')
-ax1.plot(times, y3[:,0], '-', color='salmon')
+etas = [71.17, 71.18, 71.16]
+
+axs1.plot(times, y1[:,0], '-', color='crimson', label=r'$\eta = $ {}'.format(etas[0]))
+axs1.plot(times, y2[:,0], '-', color='royalblue', label=r'$\eta = $ {}'.format(etas[1]))
+axs1.plot(times, y3[:,0], '-', color='salmon', label=r'$\eta = $ {}'.format(etas[2]))
+
+axs1.set_xlabel('Time (s)')
+axs1.set_ylabel('Angular Displacement (rad)')
+axs1.set_title(r'Butterfly Effects for Driving Force $\eta$')
+axs1.legend(loc=3)
+fig1.set_size_inches(20, 6.67)
+fig1.savefig('butterflyeffect.png', dpi=100)
+plt.show()
 
 
+
+fig2, axs2 = plt.subplots()
+
+axs2.plot(y1[:,0], y1[:,1], '-', color='crimson', label=r'$\eta = $ {}'.format(etas[0]))
+axs2.plot(y2[:,0], y2[:,1], '-', color='royalblue', label=r'$\eta = $ {}'.format(etas[1]))
+axs2.plot(y3[:,0], y3[:,1], '-', color='salmon', label=r'$\eta = $ {}'.format(etas[2]))
+
+axs2.set_xlabel('Angular Displacement (rad)')
+axs2.set_ylabel('Angular Velocity (rad/s)')
+axs2.set_title(r'Butterfly Effects for Driving Force $\eta$')
+axs2.legend(loc=3)
+fig2.set_size_inches(20, 6.67)
+fig2.savefig('butterflyphasespace.png', dpi=100)
+plt.show()
 
 
 

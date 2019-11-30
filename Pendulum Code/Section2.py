@@ -124,7 +124,7 @@ for i in range(len(initialvals)):
     y_0 = np.array([0, initialvels[i]])
     plotargs['color'] = colors[i]
     phi = str(round(initialvals[i], 3))
-    plotargs['graph label'] = r'$\dot\phi_0 = $' + phi
+    plotargs['graph label'] = r'$\phi_0 = $' + phi
     yvals = RK4(pendulum, y_0, times, parameters)
     
     pp.phasespace(times, yvals, plotargs)
@@ -136,8 +136,8 @@ plt.show()
     
 
 
-comparisons = 100
-initialvals = np.linspace(np.pi/150, np.pi-0.1, comparisons)
+comparisons = 150
+initialvals = np.linspace(np.pi/150, np.pi-0.01, comparisons)
 
 periods = []
 periodsarr = np.array(periods)
@@ -158,8 +158,8 @@ for t in periods:
     err = t - T
     errors.append(err)
 
-yticvals = [T, 1.4*T, 1.8*T, 2.2*T, 2.6*T, 3*T,]
-ytic = [r'$T_0$', r'$1.4T_0$', r'$1.8T_0$', r'$2.2T_0$', r'$2.6T_0$', r'$3T_0$']
+yticvals = [T, 1.6*T, 2.2*T, 2.8*T, 3.4*T, 4*T]
+ytic = [r'$T_0$', r'$1.6T_0$', r'$2.2T_0$', r'$2.8T_0$', r'$3.4T_0$', r'$4T_0$']
 
 
 plt.plot(initialvals, periods, '-', color = 'crimson')

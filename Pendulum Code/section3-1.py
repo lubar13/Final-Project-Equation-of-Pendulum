@@ -96,8 +96,7 @@ fig.tight_layout(pad=2.5)
 fig.legend(loc=2)
 
 fig.suptitle(r'Convergent Limit Cycle for Different $\phi_0$')
-
-plt.rcParams["figure.figsize"] = (20, 6.67) 
+fig.set_size_inches(20, 6.67)
 
 
 fig.savefig('convergent_limit_cycle.png', dpi=100)
