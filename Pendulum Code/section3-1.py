@@ -62,7 +62,7 @@ plotargs['titlesize'] = 18
 plotargs['labelsize'] = 12
 
 ### ==============================================
-### Mode locking and convergent limit cycles
+### Convergent limit cycles
 ### ==============================================
 
 

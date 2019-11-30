@@ -13,6 +13,18 @@ from rungekutta4 import RK4
 
 import pendulumplot as pp
 
+'''
+
+In this section I will consider the anharmonic behavior of the pendulum
+with no external driving nor frictional forces. This anharmonic behavior 
+starts to become apparent as the small angle approximation
+which starts to become apparent as the small angle approximation no longer 
+works. This can be explored by either making the initial angle large or the 
+initial angular velocity large. 
+
+'''
+
+
 parameters = Parameters
 
 g = 9.8
@@ -57,6 +69,14 @@ plotargs['title'] = r'Displacement for Different $\phi_0$ with $T_0 = {} s$'.for
 plotargs['titlesize'] = 18
 plotargs['labelsize'] = 12
 
+### ===========================================================================
+### I will first plot the displacement for different instances in which I 
+### increase the initial angle of the pendulum, marking the times at which 
+### the analytical solution predicts the period. In this case, the initial 
+### velocity will be set to zero for simplicity and in order to better observe
+### the effects.
+### ===========================================================================
+
 for i in range(len(initialvals)):
     times = times
     y_0 = np.array([initialvals[i], 0])
@@ -79,6 +99,16 @@ plt.savefig('displacement_for_diff_phi_in.png', dpi=100)
 
 plt.show()
 
+### ===========================================================================
+### I will now do the same for the initial velocity, setting the initial 
+### position to zero. The maximum value for the initial velocity was chosen 
+### on purpose to be the maximum velocity at zero displacement so that 
+### the pendulum does not make a full revolution, but goes back down. Slightly 
+### increasing the initial velocity by less than a hundredth is enough to be
+### make over-the-top oscillations. 
+### ===========================================================================
+
+
 initialvels = np.linspace(1., 13.717, 4)
 plotargs['title'] = r'Displacement for Different $\dot\phi_0$ with $T_0 = {} s$'.format(str(round(T,3))) 
 
@@ -98,6 +128,11 @@ plt.grid()
 plt.savefig('displacement_for_diff_vel_in.png', dpi=100)
 
 plt.show()
+
+### ===========================================================================
+### Below I plot the phase space for the above displacements.
+### ===========================================================================
+
 
 plotargs['title'] = r'Phase Space for Different $\dot\phi_0$ with $T_0 = {} s$'.format(str(round(T,3)))
 plotargs['xlabel'] = 'Angular Displacement (rad)'
@@ -133,7 +168,16 @@ for i in range(len(initialvals)):
 plt.savefig('phasespace_for_dif_phi_in.png', dpi=100)
 plt.show()
     
-    
+### ===========================================================================
+### In the code below, I plot the period of oscillation for the pendulum as a 
+### function of initial angle as it approaches pi. The initial velocity is 
+### zero. The period was calculated numerically by sampling the solution at 
+### those times it crossed the axis from the positive y to negative y; the 
+### period was set to be the difference between subsequent samples. Given that 
+### these may not be exactly zero, but be within a set tolerance, an average 
+### of the samples was taken in order to get rid of over- or undershoots as 
+### best as possible.
+### ===========================================================================
 
 
 comparisons = 150
