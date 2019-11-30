@@ -12,16 +12,17 @@ import numpy as np
 
 
 Plot_Arguments = {'graph label': ' ', 'color': ' ', 'title': ' ', 
-                    'xlabel': ' ', 'ylabel': ' ', 'lineshape': ' ', 'loc': 1}
+                    'xlabel': ' ', 'ylabel': ' ', 'lineshape': ' ', 'loc': 1,
+                    'labelsize':18, 'titlesize':24}
 
 
 def displacementplot(times, yvals, args):
     
     plt.plot(times, yvals[:,0], args['lineshape'], c=args['color'], label=args['graph label'])
     plt.legend(loc=args['loc'])
-    plt.title(args['title'])
-    plt.xlabel(args['xlabel'])
-    plt.ylabel(args['ylabel'])
+    plt.title(args['title'], fontsize=args['titlesize'])
+    plt.xlabel(args['xlabel'], fontsize=args['labelsize'])
+    plt.ylabel(args['ylabel'], fontsize=args['labelsize'])
     
     
     return
@@ -31,9 +32,9 @@ def phasespace(times, yvals, args):
     plt.plot(yvals[:, 0], yvals[:, 1], args['lineshape'], c=args['color'], label=args['graph label'])
     
     plt.legend(loc=args['loc'])
-    plt.title(args['title'])
-    plt.xlabel(args['xlabel'])
-    plt.ylabel(args['ylabel'])
+    plt.title(args['title'], fontsize=args['titlesize'])
+    plt.xlabel(args['xlabel'], fontsize=args['labelsize'])
+    plt.ylabel(args['ylabel'], fontsize=args['labelsize'])
     
     return
 
@@ -49,9 +50,9 @@ def frequencyspectrum(times, yvals, args):
                          args['lineshape'], c=args['color'], label=args['graph label'])
     
     plt.legend(loc=args['loc'])
-    plt.title(args['title'])
-    plt.xlabel(args['xlabel'])
-    plt.ylabel(args['ylabel'])
+    plt.title(args['title'], fontsize=args['titlesize'])
+    plt.xlabel(args['xlabel'], fontsize=args['labelsize'])
+    plt.ylabel(args['ylabel'], fontsize=args['labelsize'])
     
     
     return

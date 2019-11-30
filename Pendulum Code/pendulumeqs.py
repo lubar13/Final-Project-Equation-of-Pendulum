@@ -41,7 +41,7 @@ def pendulum(t, y, args):
     
     dydt[0] = y[1]
     
-    dydt[1] = (-(args['omega_0']**2)*np.sin(y[0]) - args['kappa']*y[1] 
+    dydt[1] = (-(args['omega_0']**2)*np.sin(y[0]) - args['kappa']*y[1]
     + args['eta']*np.cos(args['omega_d']*t+args['delta']))
     
     return dydt
