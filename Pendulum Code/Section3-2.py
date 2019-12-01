@@ -39,7 +39,11 @@ parameters['delta'] = 0.
 
 T = (2*np.pi)/parameters['omega_0']
 
-times = np.linspace(0, 50, 100000)
+step = 0.001
+lim = 30
+num = int(lim/step)
+
+times = np.linspace(0, lim, num + 1)
 
 initialvals = np.linspace(np.pi/15, np.pi/1.1, 3)
 phi_in = 2.1
@@ -76,7 +80,7 @@ y2 = RK4(pendulum, y_0, times, parameters)
 
 parameters['kappa'] = 2*parameters['omega_0']*0.1
 parameters['omega_d'] = parameters['omega_0']*0.56
-parameters['eta'] = 71.16
+parameters['eta'] = 40
 y3 = RK4(pendulum, y_0, times, parameters)
 
 etas = [71.17, 71.18, 71.16]
@@ -89,23 +93,29 @@ axs1.set_xlabel('Time (s)')
 axs1.set_ylabel('Angular Displacement (rad)')
 axs1.set_title(r'Butterfly Effects for Driving Force $\eta$')
 axs1.legend(loc=3)
-fig1.set_size_inches(20, 6.67)
+fig1.set_size_inches(8, 5.33)
 fig1.savefig('butterflyeffect.png', dpi=100)
 plt.show()
 
 
 
-fig2, axs2 = plt.subplots()
+fig2, axs2 = plt.subplots(1,3, sharey=True)
 
-axs2.plot(y1[:,0], y1[:,1], '-', color='crimson', label=r'$\eta = $ {}'.format(etas[0]))
-axs2.plot(y2[:,0], y2[:,1], '-', color='royalblue', label=r'$\eta = $ {}'.format(etas[1]))
-axs2.plot(y3[:,0], y3[:,1], '-', color='salmon', label=r'$\eta = $ {}'.format(etas[2]))
+axs2[0].plot(y1[:,0], y1[:,1], '-', color='crimson', label=r'$\eta = $ {}'.format(etas[0]))
+axs2[1].plot(y2[:,0], y2[:,1], '-', color='royalblue', label=r'$\eta = $ {}'.format(etas[1]))
+axs2[2].plot(y3[:,0], y3[:,1], '-', color='salmon', label=r'$\eta = $ {}'.format(etas[2]))
 
-axs2.set_xlabel('Angular Displacement (rad)')
-axs2.set_ylabel('Angular Velocity (rad/s)')
-axs2.set_title(r'Butterfly Effects for Driving Force $\eta$')
-axs2.legend(loc=3)
-fig2.set_size_inches(20, 6.67)
+#axs2[0].set_xlabel('Angular Displacement (rad)')
+axs2[1].set_xlabel('Angular Displacement (rad)')
+#axs2[2].set_xlabel('Angular Displacement (rad)')
+
+axs2[0].set_ylabel('Angular Velocity (rad/s)')
+fig2.suptitle(r'Butterfly Effects for Driving Force $\eta$')
+axs2[0].legend(loc=2)
+axs2[1].legend(loc=2)
+axs2[2].legend(loc=2)
+
+fig2.set_size_inches(16, 5.33)
 fig2.savefig('butterflyphasespace.png', dpi=100)
 plt.show()
 

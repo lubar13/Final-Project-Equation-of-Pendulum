@@ -30,20 +30,20 @@ I = (1/3)*m_1*L*L + (L+r)**2*m_2
 
 
 parameters['M'] = m_1 + m_2
-parameters['omega_0'] = 1 #np.sqrt((parameters['M']*g*L_cm)/I)
+parameters['omega_0'] = np.sqrt((parameters['M']*g*L_cm)/I)
 parameters['kappa'] = 0.1
-parameters['omega_d'] = 2
+parameters['omega_d'] = 0.56*np.sqrt((parameters['M']*g*L_cm)/I)
 parameters['eta'] = 30
 T_drive = (2*np.pi)/parameters['omega_d']
 print(parameters['omega_0'])
 print(parameters['omega_d'], T_drive, T_drive*150, parameters['kappa'])
 
-transtime = 150
-#when cos term is zero
-initialdrivetime = (transtime*np.arccos(0) + np.pi/2)/transtime*parameters['omega_d']
-numoftimes = 100000
+step = 0.001
+lim = 200
+num = int(lim/step)
 
-times = np.linspace(0, 500, 150000)
+times = np.linspace(0, lim, num + 1)
+
 y_0 = [1., 1.]
 
 yvals = RK4(pendulumTorque, y_0, times, parameters)
@@ -54,7 +54,7 @@ plotargs['lineshape'] = '-'
 
 #pp.displacementplot(times, yvals, plotargs)
 
-etas = np.linspace(0, 5, 1000)
+etas = np.linspace(45, 60, 50)
 velocities = [] 
 
 #def bifurcation()
@@ -64,16 +64,31 @@ for i in range(len(etas)):
     tol = 0.0006
     parameters['eta'] = etas[i]
     yvals = RK4(pendulumTorque, y_0, times, parameters)
-    l = 1
-    limit = int(numoftimes/2)
+    print(i)
+    limit = int(num/2)
     for t in times[limit:]:
-        k = np.where(times == t)
-        #print(k)
-        if np.abs(parameters['eta']*np.cos(parameters['omega_d']*t
-                  +parameters['delta'])*np.sin(yvals[k,0])) <= tol:
-            vel = np.abs(yvals[k, 1][0][0])
+        k = int(np.where(times == t)[0])
+        
+        init = parameters['eta']*np.cos(parameters['omega_d']*times[k-2]
+                  +parameters['delta'])*np.sin(yvals[k-1,0])
+        
+        fin = parameters['eta']*np.cos(parameters['omega_d']*times[k]
+                  +parameters['delta'])*np.sin(yvals[k,0])
+        if init*fin<=0:
+            #print(init, fin)
+            vel = np.abs(yvals[k-1, 1])
+            #print(vel)
             velocities.append(vel)
-            break
+    et = [etas[i]] * len(velocities)
+    plt.plot(et, velocities, '.', c='crimson')
+    plt.xlabel(r'$\eta$')
+    plt.ylabel(r'$|\dot\phi|$')
+    plt.title(r'Bifurcation Diagram for Varying $\eta$')
+    plt.figaspect((3,2))
+    plt.rcParams((8,5.33))
+    
+    velocities = []
+            #break
             #plt.plot(etas[i], vel, ',', color='crimson')
         #l += 1    
         #if l == 150:
@@ -81,17 +96,19 @@ for i in range(len(etas)):
 print(etas)
 print(velocities)
 
-fig, axs = plt.subplots()
+plt.savefig('birfurcationdiagram.png', dpi=100)
 
-axs.plot(etas, velocities, ',', color='crimson')
-axs.set_title(r'Bifurcation Diagram for $\dot\phi = {},  \phi = {}, \omega_0 = {}, \omega_d = {}, \kappa = {}$'.format(y_0[1], y_0[0], 
-              parameters['omega_0'], parameters['omega_d'], parameters['kappa']))
+#fig, axs = plt.subplots()
 
-axs.set_xlabel(r'$\eta$')
-axs.set_ylabel(r'$|\dot\phi(t)|$')
-fig.set_size_inches(8, 5.33)
-fig.savefig('bifurcationdiagram.png', dpi=100)
-plt.show()
+#axs.plot(etas, velocities, '.', color='crimson')
+#axs.set_title(r'Bifurcation Diagram for $\dot\phi = {},  \phi = {}, \omega_0 = {}, \omega_d = {}, \kappa = {}$'.format(y_0[1], y_0[0], 
+ #             parameters['omega_0'], parameters['omega_d'], parameters['kappa']))
+
+#axs.set_xlabel(r'$\eta$')
+#axs.set_ylabel(r'$|\dot\phi(t)|$')
+#fig.set_size_inches(8, 5.33)
+#fig.savefig('bifurcationdiagram.png', dpi=100)
+#plt.show()
 
 
 

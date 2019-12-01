@@ -45,7 +45,12 @@ parameters['omega_0'] = np.sqrt((parameters['M']*g*L_cm)/I)
 
 T = (2*np.pi)/parameters['omega_0']
 
-times = np.linspace(0, 5, 20000)
+step = 0.001
+lim = 5
+num = int(lim/step)
+
+times = np.linspace(0, lim, num + 1)
+
 
 initialvals = np.linspace(np.pi/15, np.pi/1.1, 3)
 phi_in = 0
@@ -207,7 +212,7 @@ ytic = [r'$T_0$', r'$1.6T_0$', r'$2.2T_0$', r'$2.8T_0$', r'$3.4T_0$', r'$4T_0$']
 
 
 plt.plot(initialvals, periods, '-', color = 'crimson')
-plt.title(r'Divergence of Period as $\phi_0 \to \pi$')
+plt.title(r'Divergence of Period as $\phi_0 \to \pi$', fontsize=18)
 plt.xlabel(r'$\phi_0$ (rad)', fontsize=12)
 plt.ylabel('Period (s)', fontsize=12)
 plt.axvline(np.pi, color = 'k', linestyle = '--')

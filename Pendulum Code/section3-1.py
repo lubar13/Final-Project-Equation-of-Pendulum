@@ -30,22 +30,26 @@ I = (1/3)*m_1*L*L + (L+r)**2*m_2
 
 parameters['M'] = m_1 + m_2
 parameters['omega_0'] = np.sqrt((parameters['M']*g*L_cm)/I)
-parameters['omega_d'] = parameters['omega_0']*1.67
-parameters['kappa'] = 2*parameters['omega_0']*0.12
-parameters['eta'] = 23
+parameters['omega_d'] = parameters['omega_0']*0.56
+parameters['kappa'] = 2*parameters['omega_0']*0.1
+parameters['eta'] = 50
 parameters['delta'] = 0.
 
 
 T = (2*np.pi)/parameters['omega_0']
 
-times = np.linspace(0, 10, 25000)
+step = 0.001
+lim = 25
+num = int(lim/step)
+
+times = np.linspace(0, lim, num + 1)
 
 initialvals = np.linspace(np.pi/15, np.pi/1.1, 3)
 phi_in = 1.9
 vel_in = 1.2
 
 y_0 = np.array([phi_in, vel_in])
-yvals = RK4(pendulum, y_0, times, parameters)
+yvals = RK4(pendulumTorque, y_0, times, parameters)
 
 plotargs = pp.Plot_Arguments
 colors = ['orange', 'red', 'turquoise', 'coral', 'crimson', 'magenta', 'blueviolet', 'darkslategrey', 'royalblue'
@@ -68,11 +72,11 @@ plotargs['labelsize'] = 12
 
 ### convergent limit cycle
 
-y_1 = [-2.4, 5]
-y_2 = [1.9, -5]
+y_1 = [-2.4, 7.5]
+y_2 = [1.9, -7.5]
 
-y1 = RK4(pendulum, y_1, times, parameters)
-y2 = RK4(pendulum, y_2, times, parameters)
+y1 = RK4(pendulumTorque, y_1, times, parameters)
+y2 = RK4(pendulumTorque, y_2, times, parameters)
 
 fig, axes = plt.subplots(1, 2)
 
@@ -93,7 +97,7 @@ axes[1].set_xlabel('Angular Displacement (rad)')
 
 
 fig.tight_layout(pad=2.5)
-fig.legend(loc=2)
+axes[0].legend(loc=3)
 
 fig.suptitle(r'Convergent Limit Cycle for Different $\phi_0$')
 fig.set_size_inches(20, 6.67)

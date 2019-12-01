@@ -52,8 +52,11 @@ print(parameters['omega_0'])
 ### ======================================================================
 ### Create a time interval and some initial conditions.
 ### ======================================================================
+step = 0.001
+lim = 5
+num = int(lim/step)
 
-times = np.linspace(0, 5, 20000)
+times = np.linspace(0, lim, num +1)
 initialvals = np.linspace(np.pi/15, np.pi/1.1, 3)
 phi_in = np.pi/20
 vel_in = 0
