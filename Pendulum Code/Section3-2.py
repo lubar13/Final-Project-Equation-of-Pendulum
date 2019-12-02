@@ -40,14 +40,14 @@ parameters['delta'] = 0.
 T = (2*np.pi)/parameters['omega_0']
 
 step = 0.001
-lim = 30
+lim = 40
 num = int(lim/step)
 
 times = np.linspace(0, lim, num + 1)
 
 initialvals = np.linspace(np.pi/15, np.pi/1.1, 3)
-phi_in = 2.1
-vel_in = 1.2
+phi_in = 1.9
+vel_in = -1.3
 
 y_0 = np.array([phi_in, vel_in])
 yvals = RK4(pendulum, y_0, times, parameters)
@@ -70,20 +70,20 @@ fig1, axs1 = plt.subplots()
 
 parameters['kappa'] = 2*parameters['omega_0']*0.1
 parameters['omega_d'] = parameters['omega_0']*0.56
-parameters['eta'] = 71.17
+parameters['eta'] = 47.13
 y1 = RK4(pendulum, y_0, times, parameters)
 
 parameters['kappa'] = 2*parameters['omega_0']*0.1
 parameters['omega_d'] = parameters['omega_0']*0.56
-parameters['eta'] = 71.18
+parameters['eta'] = 47.14
 y2 = RK4(pendulum, y_0, times, parameters)
 
 parameters['kappa'] = 2*parameters['omega_0']*0.1
 parameters['omega_d'] = parameters['omega_0']*0.56
-parameters['eta'] = 40
+parameters['eta'] = 47.15
 y3 = RK4(pendulum, y_0, times, parameters)
 
-etas = [71.17, 71.18, 71.16]
+etas = [47.13, 47.14, 47.15]
 
 axs1.plot(times, y1[:,0], '-', color='crimson', label=r'$\eta = $ {}'.format(etas[0]))
 axs1.plot(times, y2[:,0], '-', color='royalblue', label=r'$\eta = $ {}'.format(etas[1]))

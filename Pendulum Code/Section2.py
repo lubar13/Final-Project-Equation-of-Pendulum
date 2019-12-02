@@ -71,6 +71,8 @@ plotargs['loc'] = 4
 plotargs['color'] = colors[0]
 plotargs['lineshape'] = '-'
 plotargs['title'] = r'Displacement for Different $\phi_0$ with $T_0 = {} s$'.format(str(round(T,3))) 
+plotargs['xlabel'] = 'Angular Displacement (rad)'
+plotargs['ylabel'] = 'Angular Velocity (rad/s)'
 plotargs['titlesize'] = 18
 plotargs['labelsize'] = 12
 

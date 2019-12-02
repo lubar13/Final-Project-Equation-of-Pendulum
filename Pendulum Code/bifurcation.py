@@ -30,16 +30,16 @@ I = (1/3)*m_1*L*L + (L+r)**2*m_2
 
 
 parameters['M'] = m_1 + m_2
-parameters['omega_0'] = np.sqrt((parameters['M']*g*L_cm)/I)
-parameters['kappa'] = 0.1
-parameters['omega_d'] = 2.5*np.sqrt((parameters['M']*g*L_cm)/I)
+parameters['omega_0'] = 11.13 #  np.sqrt((parameters['M']*g*L_cm)/I)
+parameters['kappa'] = 2*parameters['omega_0']*0.1
+parameters['omega_d'] = parameters['omega_0']*2
 parameters['eta'] = 30
 T_drive = (2*np.pi)/parameters['omega_d']
 print(parameters['omega_0'])
 print(parameters['omega_d'], T_drive, T_drive*150, parameters['kappa'])
 
 step = 0.001
-lim = 300
+lim = 450
 num = int(lim/step)
 
 times = np.linspace(0, lim, num + 1)
@@ -54,7 +54,7 @@ plotargs['lineshape'] = '-'
 
 #pp.displacementplot(times, yvals, plotargs)
 
-etas = np.linspace(40, 70, 50)
+etas = np.linspace(45, 65, 250)
 velocities = [] 
 
 #def bifurcation()
@@ -81,11 +81,10 @@ for i in range(len(etas)):
             velocities.append(vel)
     et = [etas[i]] * len(velocities)
     plt.plot(et, velocities, '.', c='crimson')
-    plt.xlabel(r'$\eta$')
-    plt.ylabel(r'$|\dot\phi|$')
-    plt.title(r'Bifurcation Diagram for Varying $\eta$')
-    plt.figaspect((3,2))
-    plt.rcParams((8,5.33))
+    plt.xlabel(r'$\eta$', fontsize=12)
+    plt.ylabel(r'$|\dot\phi|$', fontsize=12)
+    plt.title(r'Bifurcation Diagram for Varying $\eta$', fontsize=18)
+    plt.rcParams["figure.figsize"] = (8,5.33)
     
     velocities = []
             #break

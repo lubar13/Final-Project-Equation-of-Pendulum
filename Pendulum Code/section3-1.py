@@ -29,17 +29,17 @@ I = (1/3)*m_1*L*L + (L+r)**2*m_2
 
 
 parameters['M'] = m_1 + m_2
-parameters['omega_0'] = np.sqrt((parameters['M']*g*L_cm)/I)
+parameters['omega_0'] = 2*np.sqrt((parameters['M']*g*L_cm)/I)
 parameters['omega_d'] = parameters['omega_0']*0.56
 parameters['kappa'] = 2*parameters['omega_0']*0.1
-parameters['eta'] = 50
+parameters['eta'] = 53
 parameters['delta'] = 0.
 
 
 T = (2*np.pi)/parameters['omega_0']
 
 step = 0.001
-lim = 25
+lim = 100
 num = int(lim/step)
 
 times = np.linspace(0, lim, num + 1)
@@ -49,7 +49,7 @@ phi_in = 1.9
 vel_in = 1.2
 
 y_0 = np.array([phi_in, vel_in])
-yvals = RK4(pendulumTorque, y_0, times, parameters)
+yvals = RK4(pendulum, y_0, times, parameters)
 
 plotargs = pp.Plot_Arguments
 colors = ['orange', 'red', 'turquoise', 'coral', 'crimson', 'magenta', 'blueviolet', 'darkslategrey', 'royalblue'
@@ -72,8 +72,8 @@ plotargs['labelsize'] = 12
 
 ### convergent limit cycle
 
-y_1 = [-2.4, 7.5]
-y_2 = [1.9, -7.5]
+y_1 = [-2.4, 1.3]
+y_2 = [1.9, -1.3]
 
 y1 = RK4(pendulumTorque, y_1, times, parameters)
 y2 = RK4(pendulumTorque, y_2, times, parameters)
