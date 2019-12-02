@@ -29,7 +29,7 @@ I = (1/3)*m_1*L*L + (L+r)**2*m_2
 
 
 parameters['M'] = m_1 + m_2
-parameters['omega_0'] = 2*np.sqrt((parameters['M']*g*L_cm)/I)
+parameters['omega_0'] = np.sqrt((parameters['M']*g*L_cm)/I)
 parameters['omega_d'] = parameters['omega_0']*0.56
 parameters['kappa'] = 2*parameters['omega_0']*0.1
 parameters['eta'] = 53
@@ -78,7 +78,7 @@ y_2 = [1.9, -1.3]
 y1 = RK4(pendulumTorque, y_1, times, parameters)
 y2 = RK4(pendulumTorque, y_2, times, parameters)
 
-fig, axes = plt.subplots(1, 2)
+fig, axes = plt.subplots(2, 1)
 
 #omega_d = 1.3*omega_0 
 #chi = 0.1
@@ -90,20 +90,20 @@ axes[0].plot(times, y2[:,0], '-', color='salmon', label=r'$\phi_0 = $ {} rad'.fo
 axes[0].set_ylabel('Angular Displacement (rad)')
 axes[0].set_xlabel('Time (s)')
 
-axes[1].plot(y1[:,0], y1[:,1], '-', color='darkslategrey')
-axes[1].plot(y2[:,0], y2[:,1], '-', color='salmon')
+axes[1].plot(y1[:,0], y1[:,1], '-', color='darkslategrey', label=r'$\phi_0 = ${} rad'.format(str(y_1[0])))
+axes[1].plot(y2[:,0], y2[:,1], '-', color='salmon', label=r'$\phi_0 = $ {} rad'.format(str(y_2[0])))
 axes[1].set_ylabel('Angular Velocity (rad/s)')
 axes[1].set_xlabel('Angular Displacement (rad)')
 
 
-fig.tight_layout(pad=2.5)
-axes[0].legend(loc=3)
+fig.tight_layout(pad=2.2)
+axes[1].legend(loc=3)
 
-fig.suptitle(r'Convergent Limit Cycle for Different $\phi_0$')
-fig.set_size_inches(20, 6.67)
+fig.suptitle(r'Convergent Limit Cycle for Different $\phi_0$, $|\dot\phi_0|$ = 1.3')
+fig.set_size_inches(12, 8)
 
 
-fig.savefig('convergent_limit_cycle.png', dpi=100)
+fig.savefig('convergent_limit_cycle.png', bbox_inches='tight', dpi=100)
 
 plt.show()
 
