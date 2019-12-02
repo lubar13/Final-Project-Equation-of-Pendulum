@@ -30,16 +30,16 @@ I = (1/3)*m_1*L*L + (L+r)**2*m_2
 
 parameters['M'] = m_1 + m_2
 parameters['omega_0'] = np.sqrt((parameters['M']*g*L_cm)/I)
-parameters['omega_d'] = parameters['omega_0']*0.56
-parameters['kappa'] = 2*parameters['omega_0']*0.1
-parameters['eta'] = 53
+parameters['omega_d'] = parameters['omega_0']*2#0.56
+parameters['kappa'] = 2*parameters['omega_0']*0.013
+parameters['eta'] = 25
 parameters['delta'] = 0.
 
 
 T = (2*np.pi)/parameters['omega_0']
 
 step = 0.001
-lim = 100
+lim = 50
 num = int(lim/step)
 
 times = np.linspace(0, lim, num + 1)
@@ -96,7 +96,7 @@ axes[1].set_ylabel('Angular Velocity (rad/s)')
 axes[1].set_xlabel('Angular Displacement (rad)')
 
 
-fig.tight_layout(pad=2.2)
+#fig.tight_layout(pad=2.2)
 axes[1].legend(loc=3)
 
 fig.suptitle(r'Convergent Limit Cycle for Different $\phi_0$, $|\dot\phi_0|$ = 1.3')

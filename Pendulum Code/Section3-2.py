@@ -31,7 +31,7 @@ I = (1/3)*m_1*L*L + (L+r)**2*m_2
 
 parameters['M'] = m_1 + m_2
 parameters['omega_0'] = np.sqrt((parameters['M']*g*L_cm)/I)
-parameters['omega_d'] = parameters['omega_0']*1.3
+parameters['omega_d'] = parameters['omega_0']*2
 parameters['kappa'] = 2*parameters['omega_0']*0.1
 parameters['eta'] = 16
 parameters['delta'] = 0.
@@ -46,7 +46,7 @@ num = int(lim/step)
 times = np.linspace(0, lim, num + 1)
 
 initialvals = np.linspace(np.pi/15, np.pi/1.1, 3)
-phi_in = 1.9
+phi_in = 2.4
 vel_in = -1.3
 
 y_0 = np.array([phi_in, vel_in])
@@ -68,22 +68,22 @@ plotargs['labelsize'] = 12
 fig1, axs1 = plt.subplots(2,1)
 
 
-parameters['kappa'] = 2*parameters['omega_0']*0.1
-parameters['omega_d'] = parameters['omega_0']*0.56
-parameters['eta'] = 71.17
+parameters['kappa'] = 2*parameters['omega_0']*0.013
+parameters['omega_d'] = parameters['omega_0']*2#0.56
+parameters['eta'] = 71.123#71.17
 y1 = RK4(pendulum, y_0, times, parameters)
 
-parameters['kappa'] = 2*parameters['omega_0']*0.1
-parameters['omega_d'] = parameters['omega_0']*0.56
-parameters['eta'] = 71.18
+parameters['kappa'] = 2*parameters['omega_0']*0.013
+parameters['omega_d'] = parameters['omega_0']*2#0.56
+parameters['eta'] = 71.124#71.18
 y2 = RK4(pendulum, y_0, times, parameters)
 
-parameters['kappa'] = 2*parameters['omega_0']*0.1
-parameters['omega_d'] = parameters['omega_0']*0.56
-parameters['eta'] = 71.19
+parameters['kappa'] = 2*parameters['omega_0']*0.013
+parameters['omega_d'] = parameters['omega_0']*2#0.56
+parameters['eta'] = 71.125#71.19
 y3 = RK4(pendulum, y_0, times, parameters)
 
-etas = [71.17, 71.18, 71.19]
+etas = [71.123, 71.124, 71.125]
 
 axs1[0].plot(times, y1[:,0], '-', color='crimson', label=r'$\eta = $ {}'.format(etas[0]))
 axs1[0].plot(times, y2[:,0], '-', color='royalblue', label=r'$\eta = $ {}'.format(etas[1]))
@@ -113,7 +113,7 @@ axs1[1].set_ylabel('Angular Velocity (rad/s)')
 #axs1[1].set_title(r'Butterfly Effects for Driving Force $\eta$')
 axs1[1].legend(loc=2)
 
-fig1.tight_layout(pad=2.2)
+#fig1.tight_layout(pad=2.2)
 fig1.set_size_inches(12, 8)
 fig1.savefig('butterflyeffects.png', bbox_inches='tight',dpi=100)
 plt.show()
