@@ -32,6 +32,7 @@ I = (1/3)*m_1*L*L + (L+r)**2*m_2
 parameters['M'] = m_1 + m_2
 parameters['omega_0'] = 11.13 #  np.sqrt((parameters['M']*g*L_cm)/I)
 parameters['kappa'] = 2*parameters['omega_0']*0.1
+print(parameters['kappa'])
 parameters['omega_d'] = parameters['omega_0']*2
 parameters['eta'] = 30
 T_drive = (2*np.pi)/parameters['omega_d']

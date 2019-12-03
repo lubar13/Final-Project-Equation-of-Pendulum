@@ -63,7 +63,7 @@ y_0 = np.array([phi_in, vel_in])
 yvals = RK4(pendulum, y_0, times, parameters)
 
 plotargs = pp.Plot_Arguments
-colors = ['orange', 'red', 'coral', 'crimson', 'magenta', 'crimson', 'blueviolet', 'darkslategrey', 'royalblue'
+colors = ['salmon', 'crimson', 'maroon', 'royalblue', 'magenta', 'crimson', 'blueviolet', 'darkslategrey', 'royalblue'
           'darkgreen', 'crimson', 'maroon', 'greenyellow', 'coral', 'orangered', 'turquoise',
           'salmon']
 
@@ -107,18 +107,17 @@ xlabels = ['','0', r'$T_0$', r'$2T_0$', r'$3T_0$', r'$4T_0$',r'$5T_0$']
 axs[0].set_xticks(x, xlabels)
 axs[0].xaxis.set_major_locator(ticker.MultipleLocator(T))
 axs[0].xaxis.set_major_formatter(ticker.FixedFormatter(xlabels))
-axs[0].set_xlabel('Time (s)')
-axs[0].set_ylabel('Angular Displacement (rad)')
-axs[0].set_title(r'Displacement')
+axs[0].set_xlabel('Time (s)',fontsize=12)
+axs[0].set_ylabel('Angular Displacement (rad)', fontsize=12)
+axs[0].set_title(r'Displacement', fontsize=16)
 axs[0].legend(loc=3)
 axs[0].grid()
 
-axs[1].set_xlabel('Angular Displacement (rad)')
-axs[1].set_ylabel('Angular Velocity (rad/s)')
-axs[1].set_title('Phase Space')
+axs[1].set_xlabel('Angular Displacement (rad)', fontsize=12)
+axs[1].set_ylabel('Angular Velocity (rad/s)', fontsize=12)
+axs[1].set_title('Phase Space', fontsize=16)
 
 
-fig.suptitle(r'Varying Initial Displacement $\phi_0$ with $T_0 = {}s$'.format(str(round(T,3))))
 
 
 comparisons = 150
@@ -148,15 +147,15 @@ ytic = ['', r'$T_0$', r'$2T_0$', r'$3T_0$', r'$4T_0$']
 
 
 axs[2].plot(initials, periods, '-', color = 'darkslategrey')
-axs[2].set_title(r'Divergence of Period as $\phi_0 \to \pi$')
-axs[2].set_xlabel(r'$\phi_0$ (rad)')
-axs[2].set_ylabel('Period (s)')
+axs[2].set_title(r'Divergence of Period as $\phi_0 \to \pi$', fontsize=16)
+axs[2].set_xlabel(r'$\phi_0$ (rad)', fontsize=12)
+axs[2].set_ylabel('Period (s)', fontsize=12)
 axs[2].axvline(np.pi, color = 'k', linestyle = '--')
 
 axs[2].yaxis.set_major_locator(ticker.MultipleLocator(T))
 axs[2].yaxis.set_major_formatter(ticker.FixedFormatter(ytic))
 
-fig.set_size_inches(24, 5.33)
+fig.set_size_inches(25, 6)
 fig.savefig('section2.png', bbox_inches='tight', dpi=100)
 
 

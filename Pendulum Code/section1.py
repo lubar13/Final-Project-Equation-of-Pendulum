@@ -84,19 +84,11 @@ yvals = RK4(pendulum, y_0, times, parameters)
 
 plotargs = pp.Plot_Arguments
 
-colors = ['orange', 'red', 'coral', 'maroon', 'crimson', 'blueviolet', 'darkslategrey', 'royalblue'
+colors = ['royalblue', 'crimson', 'maroon', 'coral', 'crimson', 'blueviolet', 'darkslategrey', 'royalblue'
           'darkgreen', 'crimson', 'maroon', 'greenyellow', 'coral', 'orangered', 'turquoise',
           'salmon']
 
-plotargs['xlabel'] = 'Time (s)'
-plotargs['ylabel'] = 'Angular Displacement (rad)'
-plotargs['title'] = r'Displacement for $\omega_0 = $ {} rad/s, $\dot\phi_0 = 0, \phi_0 = {}$ rad'.format(str(round(parameters['omega_0'], 3)), str(round(phi_in, 3)))
-plotargs['loc'] = 4
-plotargs['lineshape'] = '-'
-plotargs['color'] = colors[0]
-plotargs['graph label'] = r'$\ddot\phi(t) = \omega_0^2$sin$(\omega_0 t)$'
-plotargs['titlesize'] = 18
-plotargs['labelsize'] = 12
+
 
 
 pp.displacementplot(times, yvals, plotargs)
@@ -124,6 +116,18 @@ plotargs['ylabel'] = 'Angular Displacement (rad)'
 plotargs['lineshape'] = '-'
 plotargs['loc'] = 1
 
+fig, axs = plt.subplots(1,3)
+
+
+axs[0].plot(times, yvals[:,0], '-', color='salmon', label=r'$\ddot\phi(t) = \omega_0^2$sin$(\omega_0 t)$')
+axs[0].plot(times, smol, '--', c='k', label=r'$\phi(t) = \phi_0$ cos$(\omega_0 t)$')
+axs[0].legend(loc=1)
+axs[0].set_title(r'Displacement for Small Initial Angle $\phi_0 = \pi/20$', fontsize=16)
+axs[0].set_xlabel('Time (s)', fontsize=12)
+axs[0].set_ylabel('Angular Displacement (rad)', fontsize=12)
+
+axs[2].plot(yvals[:,0], yvals[:,1], '-', color='salmon', label=r'$\chi=0$')
+
 for i in range(len(alphavals)):
     parameters['alpha'] = alphavals[i]
     parameters['kappa'] = parameters['alpha']*(2*parameters['omega_0'])
@@ -131,9 +135,26 @@ for i in range(len(alphavals)):
     plotargs['color'] = colors[i+1]
     plotargs['graph label'] = r'$\chi =$ '+ chi 
     yvals = RK4(pendulum, y_0, times, parameters)
+    axs[1].plot(times, yvals[:,0], '-', color = colors[i], label=r'$\chi = $' + chi)
+    axs[2].plot(yvals[:,0], yvals[:,1], '-', color = colors[i], label=r'$\chi = $' + chi)
     
-    pp.displacementplot(times, yvals, plotargs)
+axs[1].legend(loc=1)
+axs[2].legend(loc=1)
+axs[1].set_title(r'Displacement for Different Damping Coefficients $\chi$', fontsize=16)
+axs[1].set_xlabel('Time (s)', fontsize=12)
+axs[1].set_ylabel('Angular Displacement (rad)', fontsize=12)
+axs[2].set_title(r'Phase Space for Different Damping Coefficients $\chi$', fontsize=16)
+axs[2].set_xlabel('Angular Displacement (rad)', fontsize=12)
+axs[2].set_ylabel('Angular Velocity (rad/s)', fontsize=12)
 
+fig.set_size_inches(25, 6)
+fig.savefig('section1.png', bbox_inches='tight', dpi=100)
+plt.show()
+
+
+
+
+'''
 plt.rcParams["figure.figsize"] = (8,5.33)
 plt.savefig('damped_oscillator.png', dpi=100)
 plt.show() 
@@ -163,7 +184,7 @@ for i in range(len(alphavals)):
 
 plt.savefig('sect1_phasespace.png', dpi=100)
 plt.show()
-
+'''
 
 
 

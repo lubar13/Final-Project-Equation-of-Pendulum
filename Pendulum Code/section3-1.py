@@ -32,14 +32,14 @@ parameters['M'] = m_1 + m_2
 parameters['omega_0'] = np.sqrt((parameters['M']*g*L_cm)/I)
 parameters['omega_d'] = parameters['omega_0']*2#0.56
 parameters['kappa'] = 2*parameters['omega_0']*0.013
-parameters['eta'] = 25
+parameters['eta'] = 84.5
 parameters['delta'] = 0.
 
 
 T = (2*np.pi)/parameters['omega_0']
 
 step = 0.001
-lim = 50
+lim = 100
 num = int(lim/step)
 
 times = np.linspace(0, lim, num + 1)
@@ -72,7 +72,7 @@ plotargs['labelsize'] = 12
 
 ### convergent limit cycle
 
-y_1 = [-2.4, 1.3]
+y_1 = [2.4, -1.3]
 y_2 = [1.9, -1.3]
 
 y1 = RK4(pendulumTorque, y_1, times, parameters)
@@ -85,25 +85,26 @@ fig, axes = plt.subplots(2, 1)
 #eta=16
 #delta=0
 
-axes[0].plot(times, y1[:,0], '-', color='darkslategrey', label=r'$\phi_0 = ${} rad'.format(str(y_1[0])))
-axes[0].plot(times, y2[:,0], '-', color='salmon', label=r'$\phi_0 = $ {} rad'.format(str(y_2[0])))
-axes[0].set_ylabel('Angular Displacement (rad)')
-axes[0].set_xlabel('Time (s)')
+axes[0].plot(times, y1[:,0], '-', color='salmon', label=r'$\eta = ${}')
+#axes[0].plot(times, y2[:,0], '-', color='salmon', label=r'$\phi_0 = $ {} rad'.format(str(y_2[0])))
+axes[0].set_ylabel('Angular Displacement (rad)', fontsize=12)
+axes[0].set_xlabel('Time (s)', fontsize=12)
+axes[0].set_title('Displacement', fontsize=16)
 
-axes[1].plot(y1[:,0], y1[:,1], '-', color='darkslategrey', label=r'$\phi_0 = ${} rad'.format(str(y_1[0])))
-axes[1].plot(y2[:,0], y2[:,1], '-', color='salmon', label=r'$\phi_0 = $ {} rad'.format(str(y_2[0])))
-axes[1].set_ylabel('Angular Velocity (rad/s)')
-axes[1].set_xlabel('Angular Displacement (rad)')
+axes[1].plot(y1[:,0], y1[:,1], '-', color='salmon')
+#axes[1].plot(y2[:,0], y2[:,1], '-', color='salmon', label=r'$\phi_0 = $ {} rad'.format(str(y_2[0])))
+axes[1].set_ylabel('Angular Velocity (rad/s)',fontsize=12)
+axes[1].set_xlabel('Angular Displacement (rad)',fontsize=12)
+axes[1].set_title('Phase Space', fontsize=16)
 
 
-#fig.tight_layout(pad=2.2)
-axes[1].legend(loc=3)
+fig.tight_layout(pad=2.5)
 
-fig.suptitle(r'Convergent Limit Cycle for Different $\phi_0$, $|\dot\phi_0|$ = 1.3')
+fig.suptitle(r'Non-Periodic Behavior for $\eta = {}$'.format(str(parameters['eta'])), fontsize=18)
 fig.set_size_inches(12, 8)
 
 
-fig.savefig('convergent_limit_cycle.png', bbox_inches='tight', dpi=100)
+fig.savefig('nonperiodicbehavior.png', bbox_inches='tight', dpi=100)
 
 plt.show()
 
