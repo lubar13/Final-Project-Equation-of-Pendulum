@@ -30,43 +30,33 @@ I = (1/3)*m_1*L*L + (L+r)**2*m_2
 
 
 parameters['M'] = m_1 + m_2
-parameters['omega_0'] = 11.13 #  np.sqrt((parameters['M']*g*L_cm)/I)
-parameters['kappa'] = 2*parameters['omega_0']*0.1
-print(parameters['kappa'])
-parameters['omega_d'] = parameters['omega_0']*2
+parameters['omega_0'] = np.sqrt((parameters['M']*g*L_cm)/I)
+parameters['kappa'] = 2*parameters['omega_0']*0.013
+parameters['omega_d'] = 2*parameters['omega_0']#0.56
 parameters['eta'] = 30
 T_drive = (2*np.pi)/parameters['omega_d']
 print(parameters['omega_0'])
 print(parameters['omega_d'], T_drive, T_drive*150, parameters['kappa'])
 
 step = 0.001
-lim = 450
+lim = 500
 num = int(lim/step)
 
 times = np.linspace(0, lim, num + 1)
 
-y_0 = [1., 1.]
+y_0 = [1.9, -1.3]
 
-yvals = RK4(pendulumTorque, y_0, times, parameters)
-plotargs = pp.Plot_Arguments
 
-plotargs['color'] = 'royalblue'
-plotargs['lineshape'] = '-'
-
-#pp.displacementplot(times, yvals, plotargs)
-
-etas = np.linspace(45, 65, 250)
+etas = np.linspace(0, 92, 375)
 velocities = [] 
 
-#def bifurcation()
 
 
 for i in range(len(etas)):
-    tol = 0.0006
     parameters['eta'] = etas[i]
     yvals = RK4(pendulumTorque, y_0, times, parameters)
     print(i)
-    limit = int(2*num//3)
+    limit = int(num//2)
     for t in times[limit:]:
         k = int(np.where(times == t)[0])
         
@@ -81,20 +71,16 @@ for i in range(len(etas)):
             #print(vel)
             velocities.append(vel)
     et = [etas[i]] * len(velocities)
-    plt.plot(et, velocities, '.', c='crimson')
+    plt.plot(et, velocities, ',', c='salmon')
     plt.xlabel(r'$\eta$', fontsize=12)
     plt.ylabel(r'$|\dot\phi|$', fontsize=12)
-    plt.title(r'Bifurcation Diagram for Varying $\eta$', fontsize=18)
+    plt.title(r'Bifurcation Diagram for $\omega_d = ${}, $\kappa = {}$'.format(round(parameters['omega_d'], 3),
+                                                                               round(parameters['kappa'],3)),
+              fontsize=18)
     plt.rcParams["figure.figsize"] = (8,5.33)
     
     velocities = []
-            #break
-            #plt.plot(etas[i], vel, ',', color='crimson')
-        #l += 1    
-        #if l == 150:
-        #    break
-print(etas)
-print(velocities)
+           
 
 plt.savefig('birfurcationdiagram.png', dpi=100)
 
