@@ -118,7 +118,8 @@ axs[1].set_ylabel('Angular Velocity (rad/s)', fontsize=12)
 axs[1].set_title('Phase Space', fontsize=16)
 
 
-
+### Here I calculate the period of oscillations of 150 different initial conditions
+### in order to 
 
 comparisons = 150
 initials = np.linspace(np.pi/150, np.pi-0.01, comparisons)
@@ -160,25 +161,3 @@ fig.savefig('section2.png', bbox_inches='tight', dpi=100)
 
 
 plt.show()
-
-
-
-#plt.rcParams["figure.figsize"] = (8, 5.33)
-
-#plt.savefig('displacement_for_diff_phi_in.png', dpi=100)
-
-#plt.show()
-
-### ===========================================================================
-### I will now do the same for the initial velocity, setting the initial 
-### position to zero. The maximum value for the initial velocity was chosen 
-### on purpose to be the maximum velocity at zero displacement so that 
-### the pendulum does not make a full revolution, but goes back down. Slightly 
-### increasing the initial velocity by less than a hundredth is enough to be
-### make over-the-top oscillations. 
-### ===========================================================================
-### ===========================================================================
-### Below I plot the phase space for the above displacements.
-### ===========================================================================
-
-

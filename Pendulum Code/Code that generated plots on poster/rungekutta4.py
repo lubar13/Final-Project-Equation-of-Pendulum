@@ -14,7 +14,9 @@ import matplotlib.pyplot as plt
 
 """
 
-I will define the Runge-Kutta 4 algorithm in this file. I will later use this 
+I will define the Runge-Kutta 4 algorithm in this file. Note: it is 
+based on the code provided to us in the PHYS 250 github repository. 
+I will later use this 
 for solving the differential equation for the pendulum. I'm creating a separate 
 file so that I may use it in future projects, should I need it.
 
@@ -71,8 +73,7 @@ def RK4(function, y_0, xvals, args={}):
     
     return y
 
-### I will test the algorithm with the differential equation dydx = ay(x), ie, the exponential function
-   
+### it is easy to test the algorithm with the following function   
 
 '''
 def expo(x, y, args):
@@ -80,30 +81,6 @@ def expo(x, y, args):
     dydx = args['a']*y
     
     return dydx
-
-
-expoargs = {'a': 1}
-
-y_0 = np.array([1.])
-
-N =  100
-
-xmax = 5
-
-x = np.linspace(0., xmax, N+1)
-
-yapprox = RK4(expo, y_0, x, expoargs)
-
-plt.plot(x, yapprox, '-', c='r', label = 'RK4 approximation of Exponential')
-plt.plot(x, np.exp(expoargs['a']*x), '--', c = 'k', label = 'Exponential')
-plt.xlabel(r'$x$')
-plt.ylabel(r'$f(x)$')
-
-plt.legend(loc=2)
-
-plt.show()
-
-
 
 '''
     

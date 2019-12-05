@@ -80,19 +80,13 @@ y2 = RK4(pendulumTorque, y_2, times, parameters)
 
 fig, axes = plt.subplots(2, 1)
 
-#omega_d = 1.3*omega_0 
-#chi = 0.1
-#eta=16
-#delta=0
 
 axes[0].plot(times, y1[:,0], '-', color='salmon', label=r'$\eta = ${}')
-#axes[0].plot(times, y2[:,0], '-', color='salmon', label=r'$\phi_0 = $ {} rad'.format(str(y_2[0])))
 axes[0].set_ylabel('Angular Displacement (rad)', fontsize=12)
 axes[0].set_xlabel('Time (s)', fontsize=12)
 axes[0].set_title('Displacement', fontsize=16)
 
 axes[1].plot(y1[:,0], y1[:,1], '-', color='salmon')
-#axes[1].plot(y2[:,0], y2[:,1], '-', color='salmon', label=r'$\phi_0 = $ {} rad'.format(str(y_2[0])))
 axes[1].set_ylabel('Angular Velocity (rad/s)',fontsize=12)
 axes[1].set_xlabel('Angular Displacement (rad)',fontsize=12)
 axes[1].set_title('Phase Space', fontsize=16)

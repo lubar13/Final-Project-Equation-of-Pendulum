@@ -6,6 +6,13 @@ Created on Sat Nov 16 21:25:13 2019
 @author: lucasbaralt
 """
 
+'''
+This code offers a neat way of making individual plots of the main quantities 
+one would want to measure, such as the time evolution of displacement, 
+the phase space, and the Fourier transform.
+'''
+
+
 
 import matplotlib.pyplot as plt
 import numpy as np

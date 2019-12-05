@@ -13,6 +13,15 @@ from rungekutta4 import RK4
 
 import pendulumplot as pp
 
+'''
+The point of this code is to illustrate butterfly effects and convergent limit cycles 
+in the dynamics of the pendulum. 
+'''
+
+
+
+
+
 parameters = Parameters
 
 g = 9.8
@@ -65,23 +74,31 @@ plotargs['title'] = ''
 plotargs['titlesize'] = 18
 plotargs['labelsize'] = 12
 
+### We vary the driving force by 0.05 to illustrate the butterfly effect. Using too small variations
+### will make it hard to distinguish between butterfly effects due to our manipulation of the 
+### parameter and those that may arise from the accumulation of errors. If you want to 
+### test for such effects with smaller differences in driving force, you should decrease 
+### the step size accordingly. However, there is in effect a fundamental limit 
+### to how small the error can be made due to the computer's machine error.
+
+
 fig1, axs1 = plt.subplots(2,1)
 
 
 parameters['kappa'] = 2*parameters['omega_0']*0.013
 print(parameters['kappa'])
-parameters['omega_d'] = parameters['omega_0']*2#0.56
-parameters['eta'] = 70.4#71.17
+parameters['omega_d'] = parameters['omega_0']*2
+parameters['eta'] = 70.4
 y1 = RK4(pendulum, y_0, times, parameters)
 
 parameters['kappa'] = 2*parameters['omega_0']*0.013
-parameters['omega_d'] = parameters['omega_0']*2#0.56
-parameters['eta'] = 70.45#71.18
+parameters['omega_d'] = parameters['omega_0']*2#
+parameters['eta'] = 70.45
 y2 = RK4(pendulum, y_0, times, parameters)
 
 parameters['kappa'] = 2*parameters['omega_0']*0.013
-parameters['omega_d'] = parameters['omega_0']*2#0.56
-parameters['eta'] = 70.5#71.19
+parameters['omega_d'] = parameters['omega_0']*2#
+parameters['eta'] = 70.5#
 y3 = RK4(pendulum, y_0, times, parameters)
 
 etas = [70.40, 70.45, 70.50]
@@ -92,31 +109,20 @@ axs1[0].plot(times, y3[:,0], '-', color='darkslategrey', label=r'$\eta = $ {}'.f
 
 axs1[0].set_xlabel('Time (s)', fontsize=12)
 axs1[0].set_ylabel('Angular Displacement (rad)', fontsize=12)
-fig1.suptitle(r'Limit Cycles and Butterfly Effects for Driving Force $\eta$', fontsize=18)
 axs1[0].legend(loc=2)
-#fig1.set_size_inches(12, 8)
-#fig1.savefig('butterflyeffect.png', dpi=100)
-#plt.show()
 
-
-
-#fig2, axs2 = plt.subplots()#1,3, sharey=True)
 
 axs1[1].plot(y1[:,0], y1[:,1], '-', color='salmon', label=r'$\eta = $ {}'.format(etas[0]))
 axs1[1].plot(y2[:,0], y2[:,1], '-', color='royalblue', label=r'$\eta = $ {}'.format(etas[1]))
 axs1[1].plot(y3[:,0], y3[:,1], '-', color='darkslategrey', label=r'$\eta = $ {}'.format(etas[2]))
 
-#axs2[0].set_xlabel('Angular Displacement (rad)')
 axs1[1].set_xlabel('Angular Displacement (rad)', fontsize=12)
-#axs2[2].set_xlabel('Angular Displacement (rad)')
-
 axs1[1].set_ylabel('Angular Velocity (rad/s)',fontsize=12)
-#axs1[1].set_title(r'Butterfly Effects for Driving Force $\eta$')
 axs1[0].set_title('Displacement', fontsize=16)
 axs1[1].set_title('Phase Space', fontsize=16)
-#fig1.tight_layout(pad=2.2)
-fig1.tight_layout(pad=2.5)
 
+fig1.suptitle(r'Limit Cycles and Butterfly Effects for Driving Force $\eta$', fontsize=18)
+fig1.tight_layout(pad=2.5)
 fig1.set_size_inches(12, 8)
 fig1.savefig('butterflyeffects.png', bbox_inches='tight',dpi=100)
 plt.show()

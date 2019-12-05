@@ -91,17 +91,8 @@ colors = ['royalblue', 'crimson', 'maroon', 'coral', 'crimson', 'blueviolet', 'd
 
 
 
-pp.displacementplot(times, yvals, plotargs)
-plt.plot(times, smol, '--', c='k', label=r'$\phi(t) = $ cos$(\omega_0 t)$')
-plt.legend(loc=1)
-
-plt.rcParams["figure.figsize"] = (8,5.33)
-
-plt.savefig('numerical_vs_analytical_soln.png', dpi=100)
-plt.show()
-
 ### ======================================================================
-### Now we will plot the numerical solution for a damped pendulum, 
+### Now I will plot the numerical solution for a damped pendulum, 
 ### using different damping coefficients. Due to the way I've defined 
 ### the equation in the pendulumeqs.py file, I will use the variable 
 ### alpha as chi, but will label that parameter as chi in the real plot.
@@ -109,12 +100,6 @@ plt.show()
 
 
 alphavals = [0.15, 1.00, 1.85]
-
-plotargs['title'] = r'Displacement for Different Damping Coefficients $\chi$'
-plotargs['xlabel'] = 'Time (s)'
-plotargs['ylabel'] = 'Angular Displacement (rad)'
-plotargs['lineshape'] = '-'
-plotargs['loc'] = 1
 
 fig, axs = plt.subplots(1,3)
 
@@ -126,7 +111,14 @@ axs[0].set_title(r'Displacement for Small Initial Angle $\phi_0 = \pi/20$', font
 axs[0].set_xlabel('Time (s)', fontsize=12)
 axs[0].set_ylabel('Angular Displacement (rad)', fontsize=12)
 
+### The next line of code plots the phase space on a different plot
 axs[2].plot(yvals[:,0], yvals[:,1], '-', color='salmon', label=r'$\chi=0$')
+
+
+
+### Below, I plot the displacement for an underdamped, critically damped and 
+### overdamped oscillator and their corresponding phase spaces, which includes 
+### that for the undamped oscillator.
 
 for i in range(len(alphavals)):
     parameters['alpha'] = alphavals[i]
@@ -150,43 +142,4 @@ axs[2].set_ylabel('Angular Velocity (rad/s)', fontsize=12)
 fig.set_size_inches(25, 6)
 fig.savefig('section1.png', bbox_inches='tight', dpi=100)
 plt.show()
-
-
-
-
-'''
-plt.rcParams["figure.figsize"] = (8,5.33)
-plt.savefig('damped_oscillator.png', dpi=100)
-plt.show() 
-
-### ========================================================================
-### I will now plot the phase space both for the damped and undamped pendula. 
-### As such, I need to change the alphavals to include chi = 0.
-### ========================================================================
-
-
-alphavals = [0, 0.15, 1., 1.85]
-
-plotargs['title'] = r'Phase Space for Different Damping Coefficients $\chi$'
-plotargs['xlabel'] = 'Angular Displacement (rad)'
-plotargs['ylabel'] = 'Angular Velocity (rad/s)'
-
-for i in range(len(alphavals)):
-    parameters['alpha'] = alphavals[i]
-    parameters['kappa'] = parameters['alpha']*(2*parameters['omega_0'])
-    chi = str(round(parameters['alpha'], 2))
-    plotargs['color'] = colors[i]
-    plotargs['graph label'] = r'$\chi =$ '+ chi 
-    yvals = RK4(pendulum, y_0, times, parameters)
-    
-    pp.phasespace(times, yvals, plotargs)
-
-
-plt.savefig('sect1_phasespace.png', dpi=100)
-plt.show()
-'''
-
-
-
-
 
